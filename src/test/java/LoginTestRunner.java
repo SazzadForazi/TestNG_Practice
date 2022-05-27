@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 public class LoginTestRunner extends Setup{
-    @Test
+    @Test(priority = 1)
     public void userReg() throws IOException, ParseException {
         driver.get("http://automationpractice.com/");
         PageLogin pageLogin = new PageLogin(driver);
@@ -17,16 +17,16 @@ public class LoginTestRunner extends Setup{
         Utils utils=new Utils();
         utils.saveData(email,password);
     }
-//    @Test
-    public void userLogin() throws InterruptedException {
+    @Test(priority = 2)
+    public void userLogin() throws InterruptedException,IOException, ParseException {
         PageLogin pageLogin = new PageLogin(driver);
         driver.get("http://automationpractice.com/");
-        String name= pageLogin.doLogin();
-//        Assert.assertEquals(name,"Sazzad Hossain");
-        Assert.assertTrue(name.contains("Sazzad Hossain"), String.valueOf(true));
-        Assert.assertTrue(pageLogin.btnLogOut.isDisplayed(), String.valueOf(true));
+      Utils utils=new Utils();
+      utils.readData(utils.getLatestUser()-1);
+        String name= pageLogin.doLogin(utils.getEmail(),utils.getPassword());
+        Assert.assertTrue(name.contains("Test User"));
 
-//        Thread.sleep(5000);
-//        pageLogin.btnLogOut.click();
+        Thread.sleep(5000);
+        pageLogin.btnLogOut.click();
     }
 }

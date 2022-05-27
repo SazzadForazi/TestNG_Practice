@@ -73,13 +73,14 @@ public class PageLogin {
        txtPostCode.sendKeys("10101");
        Select option=new Select(cbState);
        option.selectByVisibleText("Alabama");
-       txtMobile.sendKeys("000000000000");
+       txtMobile.sendKeys("99999999999");
        btnSubmitAccount.click();
+       btnLogOut.click();
    }
-    public String doLogin(){
+    public String doLogin(String email,String password){
         btnLogin.click();
-        textEmail.sendKeys("forazi@gmail.com");
-        textPassword.sendKeys("forazi@gmail.com");
+        textEmail.sendKeys(email);
+        textPassword.sendKeys(password);
         btnSubmit.click();
         return lblUserName.get(0).getText();
     }
